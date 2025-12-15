@@ -4,48 +4,66 @@
   import Schedule from "./lib/Schedule.svelte";
 
   const queryClient = new QueryClient();
+
+  var multi = $state(false);
 </script>
 
 <QueryClientProvider client={queryClient}>
   <main>
-    <div class="row" style="justify-content: center">
+    <div class="row" style="justify-content: center; align-items: center;">
       <div class="item">
         <img src={mbtaLogo} class="logo" alt="MBTA Logo" />
       </div>
       <div class="item">
-        <h1 class="title">MBTA</h1>
+        <h2 class="title">MBTA</h2>
+      </div>
+      <div class="item">
+        <button
+          onclick={() => {
+            multi = !multi;
+          }}
+        >
+          {multi ? "Single" : "Multi"}
+        </button>
       </div>
     </div>
 
-    <Schedule
-      line="Green"
-      stop="Ball Square"
-      notBeforeMins={8}
-      filters={{
-        "filter[route]": "Green-E",
-        "filter[stop]": "place-balsq",
-      }}
-    />
-    <Schedule
-      line="Red"
-      stop="Davis Square"
-      notBeforeMins={12}
-      filters={{
-        "filter[route]": "Red",
-        "filter[stop]": "place-davis",
-      }}
-    />
-    <Schedule
-      line="Red"
-      stop="Porter Square"
-      notBeforeMins={12}
-      filters={{
-        "filter[route]": "Red",
-        "filter[stop]": "place-portr",
-      }}
-    />
-
-    <div class="card"></div>
+    <div class="schedule">
+      <Schedule
+        {multi}
+        line="Green"
+        stop="Ball Square"
+        notBeforeMins={8}
+        filters={{
+          "filter[route]": "Green-E",
+          "filter[stop]": "place-balsq",
+        }}
+      />
+    </div>
+    <div class="schedule">
+      <Schedule
+        {multi}
+        line="Red"
+        stop="Davis Square"
+        notBeforeMins={12}
+        filters={{
+          "filter[route]": "Red",
+          "filter[stop]": "place-davis",
+        }}
+      />
+    </div>
+    <div class="schedule">
+      <Schedule
+        {multi}
+        line="Red"
+        stop="Porter Square"
+        notBeforeMins={12}
+        filters={{
+          "filter[route]": "Red",
+          "filter[stop]": "place-portr",
+        }}
+      />
+    </div>
   </main>
 </QueryClientProvider>
 
@@ -55,8 +73,11 @@
     display: inline;
   }
   .logo {
-    height: 4em;
+    height: 3em;
     will-change: filter;
     transition: filter 300ms;
+  }
+  .schedule {
+    margin-bottom: 1em;
   }
 </style>

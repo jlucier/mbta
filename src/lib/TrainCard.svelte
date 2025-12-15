@@ -6,8 +6,9 @@
   interface Props {
     item: Prediction | Schedule;
     soon?: number;
+    twoLine?: boolean;
   }
-  const { item, soon = 10 }: Props = $props();
+  const { item, soon = 10, twoLine = false }: Props = $props();
 
   function textClass(item: Prediction | Schedule) {
     const delta = +item.attributes.arrival_time - +new Date();
@@ -26,8 +27,8 @@
 </script>
 
 <div class="card">
-  <div class="row" style="align-items: center; justify-content: space-between;">
-    <h2>
+  <div class={!twoLine ? "center-row" : ""}>
+    <h2 class="time">
       <span class={textClass(item)}
         >{inMins(item.attributes.arrival_time)} <small>mins</small></span
       >
@@ -55,10 +56,15 @@
   .card {
     min-width: 290px;
     padding: 0.5em;
-    margin-bottom: 1em;
     border: gray;
     border-width: 2px;
     border-style: solid;
     border-radius: 12px;
+  }
+  .center-row {
+    display: flex;
+    direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
 </style>

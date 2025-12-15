@@ -84,3 +84,20 @@ button:focus-visible {
 .green {
   background-color: #00843d;
 }
+.huge {
+  font-size: 32px;
+}
+
+.huge h2 {
+  font-size: 64px;
+  margin: 0;
+}
+
+.huge h2.time {
+  font-size: 90px;
+}
+
+.huge h4 {
+  font-size: 24px;
+  margin: 0;
+}
