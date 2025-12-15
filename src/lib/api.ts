@@ -36,7 +36,7 @@ interface ScheduleAttrs {
 export type Schedule = JsonApiItem<ScheduleAttrs>;
 
 export function isPrediction(obj: any): obj is Prediction {
-  return obj.attributes?.arrival_uncertainty !== undefined;
+  return obj?.attributes?.arrival_uncertainty !== undefined;
 }
 
 export interface BaseFilters extends Record<string, string | undefined> {

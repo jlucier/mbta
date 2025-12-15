@@ -75,9 +75,13 @@
       </small>
     </h2>
     {#if !multi && data.isSuccess}
-      <div>
-        <TrainCard twoLine item={data.data[0]} soon={notBeforeMins + 2} />
-      </div>
+      {#if data.data.length === 0}
+        <h2>No trains</h2>
+      {:else}
+        <div>
+          <TrainCard twoLine item={data.data[0]} soon={notBeforeMins + 2} />
+        </div>
+      {/if}
     {/if}
   </div>
 
@@ -88,13 +92,17 @@
   {/if}
 
   {#if multi && data.isSuccess}
-    <div class="row schedule">
-      {#each data.data as item}
-        <div style="margin-right: 1em;">
-          <TrainCard {item} soon={notBeforeMins + 2} />
-        </div>
-      {/each}
-    </div>
+    {#if data.data.length}
+      <div class="row schedule">
+        {#each data.data as item}
+          <div style="margin-right: 1em;">
+            <TrainCard {item} soon={notBeforeMins + 2} />
+          </div>
+        {/each}
+      </div>
+    {:else}
+      <h2>No trains</h2>
+    {/if}
   {/if}
 </div>
 
