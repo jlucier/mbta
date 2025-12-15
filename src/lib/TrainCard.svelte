@@ -29,10 +29,10 @@
   <div class="row" style="align-items: center; justify-content: space-between;">
     <h2>
       <span class={textClass(item)}
-        >{inMins(item.attributes.arrival_time)} mins</span
+        >{inMins(item.attributes.arrival_time)} <small>mins</small></span
       >
     </h2>
-    <h4 style="padding-left: 1em;">
+    <h4>
       @ {item.attributes.arrival_time.toTimeString().substring(0, 8)}
       {#if isPrediction(item)}
         ({item.attributes.arrival_uncertainty === 60
@@ -53,7 +53,7 @@
     color: red;
   }
   .card {
-    min-width: 300px;
+    min-width: 290px;
     padding: 0.5em;
     margin-bottom: 1em;
     border: gray;
