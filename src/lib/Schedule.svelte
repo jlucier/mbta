@@ -68,12 +68,16 @@
         </div>
       </div>
     {/if}
-    <h2 class={multi ? "" : `chip ${line === "Red" ? "red" : "green"}`}>
-      {stop}
-      <small style={multi ? "color: gray;" : ""}>
-        - {notBeforeMins} min
+    <div
+      class={`row line-row ${multi ? "" : `chip ${line === "Red" ? "red" : "green"}`}`}
+    >
+      <h2>
+        {stop}
+      </h2>
+      <small style={`padding-left: 0.5em; ${multi ? "color: gray;" : ""}`}>
+        <b>- {notBeforeMins} min</b>
       </small>
-    </h2>
+    </div>
     {#if !multi && data.isSuccess}
       {#if data.data.length === 0}
         <h2>No trains</h2>
@@ -113,8 +117,6 @@
   .chip {
     border-radius: 1em;
     padding: 0em 1em;
-    min-width: 3em;
-    text-align: center;
     margin-right: 0.5em;
   }
   .line-row {
