@@ -54,7 +54,7 @@
           }
         }
       }
-      return sched;
+      return _.sortBy(sched, "attributes.arrival_time");
     },
   }));
 </script>
@@ -70,9 +70,9 @@
     {/if}
     <h2 class={multi ? "" : `chip ${line === "Red" ? "red" : "green"}`}>
       {stop}
-      {#if multi}
-        <small style="color: gray;"> - {notBeforeMins} min</small>
-      {/if}
+      <small style={multi ? "color: gray;" : ""}>
+        - {notBeforeMins} min
+      </small>
     </h2>
     {#if !multi && data.isSuccess}
       <div>

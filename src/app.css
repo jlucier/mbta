@@ -93,6 +93,10 @@ button:focus-visible {
   margin: 0;
 }
 
+.huge small {
+  font-size: 32px;
+}
+
 .huge h2.time {
   font-size: 90px;
 }
