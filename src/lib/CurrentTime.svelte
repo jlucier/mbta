@@ -2,7 +2,7 @@
   import { onMount, onDestroy } from "svelte";
 
   var now = $state(new Date());
-  var timer = null;
+  var timer: number | null = null;
 
   onMount(() => {
     timer = setInterval(() => (now = new Date()), 60000);
@@ -15,10 +15,14 @@
     const s = "" + val;
     return s.padStart(target, "0");
   }
+
+  function formatHour(val: number) {
+    return val > 12 ? val - 12 : val;
+  }
 </script>
 
 <h1 class="time-text">
-  {leadingZero(now.getHours() % 12)}:{leadingZero(now.getMinutes())}
+  {leadingZero(formatHour(now.getHours()))}:{leadingZero(now.getMinutes())}
   {now.getHours() < 12 ? "AM" : "PM"}
 </h1>
 
