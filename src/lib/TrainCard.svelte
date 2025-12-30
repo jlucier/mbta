@@ -55,7 +55,7 @@
   }
   .card {
     min-width: 290px;
-    padding: 0.5em;
+    padding: 0.2em;
     border: gray;
     border-width: 2px;
     border-style: solid;

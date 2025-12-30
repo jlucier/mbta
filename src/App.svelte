@@ -2,6 +2,7 @@
   import { QueryClient, QueryClientProvider } from "@tanstack/svelte-query";
   import mbtaLogo from "/mbta.png";
   import Schedule from "./lib/Schedule.svelte";
+  import CurrentTime from "./lib/CurrentTime.svelte";
 
   const queryClient = new QueryClient();
 
@@ -10,21 +11,31 @@
 
 <QueryClientProvider client={queryClient}>
   <main>
-    <div class="row" style="justify-content: center; align-items: center;">
+    <div
+      class="row"
+      style="justify-content: space-between; align-items: center"
+    >
       <div class="item">
-        <img src={mbtaLogo} class="logo" alt="MBTA Logo" />
+        <div class="row" style="justify-content: center; align-items: center;">
+          <div class="item">
+            <img src={mbtaLogo} class="logo" alt="MBTA Logo" />
+          </div>
+          <div class="item">
+            <h2 class="title">MBTA</h2>
+          </div>
+          <div class="item">
+            <button
+              onclick={() => {
+                multi = !multi;
+              }}
+            >
+              {multi ? "Single" : "Multi"}
+            </button>
+          </div>
+        </div>
       </div>
       <div class="item">
-        <h2 class="title">MBTA</h2>
-      </div>
-      <div class="item">
-        <button
-          onclick={() => {
-            multi = !multi;
-          }}
-        >
-          {multi ? "Single" : "Multi"}
-        </button>
+        <CurrentTime />
       </div>
     </div>
 
