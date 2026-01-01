@@ -15,6 +15,17 @@
     notBeforeMins = 10,
   } = $props();
 
+  function apiDate(d: Date) {
+    return _.join(
+      [
+        d.getFullYear(),
+        _.padStart("" + (d.getMonth() + 1), 2, "0"),
+        _.padStart("" + d.getDate(), 2, "0"),
+      ],
+      "-",
+    );
+  }
+
   const data = createQuery(() => ({
     refetchInterval: 30_000,
     queryKey: [`schedule-${line}-${stop}`],
@@ -35,11 +46,10 @@
         (p) => p.attributes.arrival_time >= nbf,
       );
 
-      const dstr = `${date.getFullYear()}-${_.pad("" + (date.getMonth() + 1), 2, "0")}-${_.pad("" + date.getDate(), 2, "0")}`;
       const sched = (
         await getSchedule({
           ...filters,
-          "filter[date]": dstr,
+          "filter[date]": apiDate(date),
           "filter[min_time]": nbf.toTimeString().substring(0, 5),
           "filter[max_time]": end.toTimeString().substring(0, 5),
         })
