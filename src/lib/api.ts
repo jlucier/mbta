@@ -54,11 +54,11 @@ export interface ScheduleFilters extends BaseFilters {
   sort?: string;
 }
 
-function parseDates(obj: Object) {
+function parseDates(obj: Record<string, unknown>) {
   return _.fromPairs(
     _.map(obj, (v, k) => [
       k,
-      k === "arrival_time" || k == "departure_time" ? new Date(v as string) : v,
+      k === "arrival_time" || k === "departure_time" ? new Date(v as string) : v,
     ]),
   );
 }

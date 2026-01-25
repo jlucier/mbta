@@ -30,7 +30,7 @@
   <div class={!twoLine ? "center-row" : ""}>
     <h2 class="time">
       <span class={textClass(item)}
-        >{inMins(item.attributes.arrival_time)} <small>mins</small></span
+        >{inMins(item.attributes.arrival_time)} <small>min</small></span
       >
     </h2>
     <h4>

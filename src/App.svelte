@@ -3,6 +3,7 @@
   import mbtaLogo from "/mbta.png";
   import Schedule from "./lib/Schedule.svelte";
   import CurrentTime from "./lib/CurrentTime.svelte";
+  import Weather from "./lib/Weather.svelte";
 
   const queryClient = new QueryClient();
 
@@ -16,23 +17,22 @@
       style="justify-content: space-between; align-items: center"
     >
       <div class="item">
-        <div class="row" style="justify-content: center; align-items: center;">
+        <button
+          class="logo-btn row"
+          onclick={() => {
+            multi = !multi;
+          }}
+        >
           <div class="item">
             <img src={mbtaLogo} class="logo" alt="MBTA Logo" />
           </div>
           <div class="item">
-            <h2 class="title">MBTA</h2>
+            <h1 class="title">MBTA</h1>
           </div>
-          <div class="item">
-            <button
-              onclick={() => {
-                multi = !multi;
-              }}
-            >
-              {multi ? "Single" : "Multi"}
-            </button>
-          </div>
-        </div>
+        </button>
+      </div>
+      <div class="item">
+        <Weather />
       </div>
       <div class="item">
         <CurrentTime />
@@ -44,7 +44,7 @@
         {multi}
         line="Green"
         stop="Ball Square"
-        notBeforeMins={8}
+        notBeforeMins={7}
         filters={{
           "filter[route]": "Green-E",
           "filter[stop]": "place-balsq",
@@ -79,6 +79,18 @@
 </QueryClientProvider>
 
 <style>
+  .logo-btn {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    cursor: pointer;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    color: inherit;
+  }
+  .logo-btn:active {
+    background: rgba(255, 255, 255, 0.25);
+  }
   .title {
     justify-content: center;
     display: inline;

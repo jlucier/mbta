@@ -31,7 +31,7 @@
     queryKey: [`schedule-${line}-${stop}`],
     queryFn: async (): Promise<SchedItem[]> => {
       const date = new Date();
-      const nbf = new Date(+date + (notBeforeMins - 2) * 60_000);
+      const nbf = new Date(+date + (notBeforeMins - 1) * 60_000);
       const end = new Date(+date + (30 + notBeforeMins) * 60 * 1000);
 
       const filters = {
@@ -82,18 +82,22 @@
       class={`row line-row ${multi ? "" : `chip ${line === "Red" ? "red" : "green"}`}`}
     >
       <h2>
-        {stop}
+        {multi ? stop : stop.split(" ")[0]}
       </h2>
-      <small style={`padding-left: 0.5em; ${multi ? "color: gray;" : ""}`}>
-        <b>- {notBeforeMins} min</b>
+      <small style={`font-size: 0.7em; ${multi ? "color: gray;" : ""}`}>
+        <b>&nbsp;- {notBeforeMins} min</b>
       </small>
     </div>
     {#if !multi && data.isSuccess}
       {#if data.data.length === 0}
         <h2>No trains</h2>
       {:else}
-        <div>
-          <TrainCard twoLine item={data.data[0]} soon={notBeforeMins + 2} />
+        <div class="row trains-compact">
+          {#each data.data.slice(0, 2) as item}
+            <div>
+              <TrainCard twoLine {item} soon={notBeforeMins + 2} />
+            </div>
+          {/each}
         </div>
       {/if}
     {/if}
@@ -126,7 +130,7 @@
   }
   .chip {
     border-radius: 1em;
-    padding: 0em 1em;
+    padding: 0em 0.75em;
     margin-right: 0.5em;
   }
   .line-row {
@@ -136,5 +140,8 @@
   .schedule {
     max-width: 100vw;
     overflow-x: scroll;
+  }
+  .trains-compact {
+    gap: 0.5em;
   }
 </style>
