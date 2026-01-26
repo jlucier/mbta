@@ -26,7 +26,7 @@
   }
 </script>
 
-<div class="card">
+<div class="card" class:two-line={twoLine}>
   <div class={!twoLine ? "center-row" : ""}>
     <h2 class="time">
       <span class={textClass(item)}
@@ -34,7 +34,9 @@
       >
     </h2>
     <h4>
-      @ {item.attributes.arrival_time.toTimeString().substring(0, 8)}
+      {#if !twoLine}
+        @ {item.attributes.arrival_time.toTimeString().substring(0, 8)}
+      {/if}
       {#if isPrediction(item)}
         ({item.attributes.arrival_uncertainty === 60
           ? "En Route"
@@ -66,5 +68,9 @@
     direction: row;
     align-items: center;
     justify-content: space-between;
+  }
+  .two-line {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
   }
 </style>
