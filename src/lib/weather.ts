@@ -97,10 +97,10 @@ export async function fetchWeather(): Promise<WeatherData> {
 }
 
 export function tempColor(tempF: number) {
-  if (tempF < 32) return "#4aa8ff";
-  if (tempF < 50) return "#7ecbff";
-  if (tempF < 65) return "#8bd17c";
-  if (tempF < 75) return "#e0c34c";
-  if (tempF < 85) return "#f0954c";
-  return "#e0503c";
+  if (tempF < 32) return "#c6e0f7";
+  if (tempF < 50) return "#d3ebf5";
+  if (tempF < 65) return "#d1e8c2";
+  if (tempF < 75) return "#f2e0a6";
+  if (tempF < 85) return "#f2c8a0";
+  return "#eeae98";
 }
