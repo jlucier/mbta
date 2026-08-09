@@ -1,7 +1,7 @@
 const API_KEY = import.meta.env.VITE_OWM_API_KEY;
 const LAT = 42.3954;
 const LON = -71.1225;
-const HOURLY_COUNT = 6;
+const HOURLY_COUNT = 7;
 
 interface CurrentWeatherResponse {
   main: { temp: number };
@@ -77,11 +77,13 @@ export async function fetchWeather(): Promise<WeatherData> {
   const highF = Math.max(...temps);
   const lowF = Math.min(...temps);
 
-  const hourly: HourlyEntry[] = forecast.list.slice(0, HOURLY_COUNT).map((f) => ({
-    time: new Date(f.dt * 1000),
-    icon: f.weather[0].icon,
-    tempF: f.main.temp,
-  }));
+  const hourly: HourlyEntry[] = forecast.list
+    .slice(0, HOURLY_COUNT)
+    .map((f) => ({
+      time: new Date(f.dt * 1000),
+      icon: f.weather[0].icon,
+      tempF: f.main.temp,
+    }));
 
   return {
     condition: current.weather[0].description,

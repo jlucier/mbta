@@ -35,6 +35,14 @@
     aria-label={`Switch to °${unit === "F" ? "C" : "F"}`}
   >
     <div class="stats">
+      <div
+        class="stat-row precip"
+        class:medium={weather.data.precipChance >= 20 &&
+          weather.data.precipChance < 50}
+        class:high={weather.data.precipChance >= 50}
+      >
+        <h2 class="stat-value">☔ {weather.data.precipChance}%</h2>
+      </div>
       <div class="stat-row">
         <h2 class="stat-value">
           <span style={`color: ${tempColor(weather.data.highF)}`}
@@ -46,14 +54,6 @@
           >
         </h2>
       </div>
-      <div
-        class="stat-row precip"
-        class:medium={weather.data.precipChance >= 20 &&
-          weather.data.precipChance < 50}
-        class:high={weather.data.precipChance >= 50}
-      >
-        <h2 class="stat-value">☔ {weather.data.precipChance}%</h2>
-      </div>
     </div>
 
     <hr class="divider" />
@@ -61,7 +61,9 @@
     <div class="hourly">
       {#each weather.data.hourly as h}
         <div class="hour-row">
-          <small class="hour-time">{formatHour(h.time)}</small>
+          <div>
+            <small class="hour-time">{formatHour(h.time)}</small>
+          </div>
           <div class="hour-condition">
             <img
               src={`https://openweathermap.org/img/wn/${h.icon}.png`}
@@ -97,17 +99,15 @@
     border-radius: 1em;
   }
   .divider {
-    width: 80%;
     border: none;
     border-top: 1px solid currentColor;
     opacity: 0.2;
-    margin: 0.75em 0;
+    margin: 0.5em 0;
   }
   .stats {
     display: flex;
     flex-direction: column;
-    width: 80%;
-    gap: 0.5em;
+    gap: 0.35em;
   }
   .stat-row {
     display: flex;
@@ -116,7 +116,7 @@
     color: gray;
   }
   .stat-value {
-    font-size: 60px;
+    font-size: 64px;
     margin: 0;
   }
   .precip.medium {
@@ -128,14 +128,14 @@
   .hourly {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 100%;
   }
   .hour-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 2px solid gray;
-    padding: 0.3em 0.75em;
+    padding: 0.2em 0.6em;
   }
   .hour-row:last-child {
     border-bottom: none;
@@ -154,7 +154,6 @@
   }
   .hour-temp {
     font-size: 34px;
-    min-width: 3em;
     text-align: right;
   }
 </style>

@@ -42,7 +42,7 @@
   }
   .conditions-icon {
     height: 84px;
-    margin: -1em;
+    margin-right: -1em;
     filter: brightness(0) invert(1);
   }
   .conditions-temp {

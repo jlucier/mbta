@@ -65,7 +65,7 @@
 
 <div class="schedule-column huge">
   <div class={`chip ${line === "Red" ? "red" : "green"}`}>
-    <h2>{stop.split(" ")[0]}</h2>
+    <h2 class="stop-name">{stop.split(" ")[0]}</h2>
   </div>
 
   {#if data.isLoading}
@@ -97,6 +97,9 @@
     padding: 0em 0.75em;
     margin-bottom: 0.5em;
     display: flex;
+  }
+  .stop-name {
+    font-size: 56px;
   }
   .trains-stack {
     display: flex;
