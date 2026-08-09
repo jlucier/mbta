@@ -16,19 +16,27 @@
     return s.padStart(target, "0");
   }
 
-  function formatHour(val: number) {
-    return val > 12 ? val - 12 : val;
+  function formatDate(d: Date) {
+    return d.toLocaleDateString(undefined, {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+    });
   }
 </script>
 
 <h1 class="time-text">
-  {leadingZero(formatHour(now.getHours()))}:{leadingZero(now.getMinutes())}
-  {now.getHours() < 12 ? "AM" : "PM"}
+  {leadingZero(now.getHours())}:{leadingZero(now.getMinutes())}
+  <span class="date-text">{formatDate(now)}</span>
 </h1>
 
 <style>
   .time-text {
     font-size: 72px;
-    margin: 0.5em;
+    margin: 0.25em 0;
+  }
+  .date-text {
+    font-size: 0.6em;
+    color: gray;
   }
 </style>

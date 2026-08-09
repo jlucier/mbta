@@ -7,13 +7,7 @@
 
   type SchedItem = Prediction | Schedule;
 
-  const {
-    line,
-    stop,
-    filters: baseFilters,
-    multi = false,
-    notBeforeMins = 10,
-  } = $props();
+  const { line, stop, filters: baseFilters, notBeforeMins = 10 } = $props();
 
   function apiDate(d: Date) {
     return _.join(
@@ -69,79 +63,44 @@
   }));
 </script>
 
-<div>
-  <div class={`row line-row ${multi ? "" : "huge"}`}>
-    {#if multi}
-      <div>
-        <div class={`chip ${line === "Red" ? "red" : "green"}`}>
-          <b>{line}</b>
-        </div>
-      </div>
-    {/if}
-    <div
-      class={`row line-row ${multi ? "" : `chip ${line === "Red" ? "red" : "green"}`}`}
-    >
-      <h2>
-        {multi ? stop : stop.split(" ")[0]}
-      </h2>
-      <small style={`font-size: 0.7em; ${multi ? "color: gray;" : ""}`}>
-        <b>&nbsp;- {notBeforeMins} min</b>
-      </small>
-    </div>
-    {#if !multi && data.isSuccess}
-      {#if data.data.length === 0}
-        <h2>No trains</h2>
-      {:else}
-        <div class="row trains-compact">
-          {#each data.data.slice(0, 2) as item}
-            <div>
-              <TrainCard twoLine {item} soon={notBeforeMins + 2} />
-            </div>
-          {/each}
-        </div>
-      {/if}
-    {/if}
+<div class="schedule-column huge">
+  <div class={`chip ${line === "Red" ? "red" : "green"}`}>
+    <h2>{stop.split(" ")[0]}</h2>
   </div>
 
   {#if data.isLoading}
     <p>Loading...</p>
   {:else if data.isError}
     <p>Error: {data.error.message}</p>
-  {/if}
-
-  {#if multi && data.isSuccess}
-    {#if data.data.length}
-      <div class="row schedule">
-        {#each data.data as item}
-          <div style="margin-right: 1em;">
-            <TrainCard {item} soon={notBeforeMins + 2} />
-          </div>
+  {:else if data.isSuccess}
+    {#if data.data.length === 0}
+      <h2>No trains</h2>
+    {:else}
+      <div class="trains-stack">
+        {#each data.data.slice(0, 3) as item}
+          <TrainCard {item} soon={notBeforeMins + 2} />
         {/each}
       </div>
-    {:else}
-      <h2>No trains</h2>
     {/if}
   {/if}
 </div>
 
 <style>
-  .line-row.huge {
-    justify-content: space-between;
+  .schedule-column {
+    display: flex;
+    flex-direction: column;
   }
   .chip {
+    align-items: center;
+    justify-content: center;
     border-radius: 1em;
     padding: 0em 0.75em;
-    margin-right: 0.5em;
+    margin-bottom: 0.5em;
+    display: flex;
   }
-  .line-row {
-    align-items: center;
-    justify-content: flex-start;
-  }
-  .schedule {
-    max-width: 100vw;
-    overflow-x: scroll;
-  }
-  .trains-compact {
+  .trains-stack {
+    display: flex;
+    flex-direction: column;
     gap: 0.5em;
   }
 </style>
